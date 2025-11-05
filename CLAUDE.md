@@ -91,13 +91,64 @@ docker compose down
 ./add_account.sh
 # or: docker compose exec -it drop /bin/sh -c "dotnet TwitchDropsBot.Console.dll --add-account"
 
-# Update bot to latest version
+# Update bot to latest version (一键更新所有内容)
 ./auto_update.sh
 ```
+
+### Auto Update Script (auto_update.sh)
+
+自动更新脚本执行完整的更新流程，包括：
+
+1. 停止所有服务
+2. 更新 TwitchDropsBot 代码（git pull 或 git clone）
+3. 构建前端（优先使用 Docker，回退到 npm）
+4. 创建必要目录（logs、static 等）
+5. 设置文件权限（config.json: 666, logs/: 777）
+6. 清理未使用的 Docker 镜像
+7. 重新构建所有容器
+8. 启动所有服务
+
+**使用场景：**
+- Bot 版本更新
+- Web 界面更新
+- 文件权限修复
+- 系统维护
+
+**注意：** 脚本会停止服务，确保无重要任务运行时执行。
 
 ### Database Operations
 - SQLite database at `web-backend/app.db` for admin accounts and sessions
 - Schema auto-created on startup via SQLAlchemy models
+
+### Scheduled Tasks (定时任务)
+
+系统包含自动定时重启功能：
+
+**位置：** `web-backend/app/services/scheduler_service.py`
+
+**默认配置：**
+- 重启时间：每天凌晨 4:00
+- 自动重启 Bot 容器以确保稳定性
+
+**修改定时重启时间：**
+
+编辑 `scheduler_service.py` 中的配置：
+
+```python
+def __init__(self):
+    # 每天凌晨4点重启（可配置）
+    self.restart_hour = 4      # 修改这里：小时 (0-23)
+    self.restart_minute = 0    # 修改这里：分钟 (0-59)
+```
+
+**手动触发重启：**
+- Web 界面：管理员后台 → 系统管理 → 手动重启 Bot
+- API：`POST /api/admin/bot/restart`
+- 命令行：`docker compose restart drop`
+
+**查看下次重启时间：**
+- Web 界面：管理员后台 → 系统管理
+- API：`GET /api/admin/bot/next-restart`
 
 ## Important Constraints
 

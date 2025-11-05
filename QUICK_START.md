@@ -2,6 +2,31 @@
 
 ## 🚀 快速部署（推荐）
 
+### 第一步：配置环境变量
+
+项目提供了详细的配置模板文件 `.env.example`，包含了所有必要的配置项和中文说明：
+
+```bash
+# 复制配置模板
+cp .env.example .env
+
+# 编辑配置文件（至少修改以下内容）
+nano .env  # 或使用你喜欢的编辑器
+```
+
+**必须修改的配置项：**
+- `ADMIN_PASSWORD` - 管理员密码（生产环境必须修改！）
+- `JWT_SECRET_KEY` - JWT 密钥（可用 `openssl rand -hex 32` 生成）
+
+**可选配置项：**
+- `ADMIN_USERNAME` - 管理员用户名（默认 admin）
+- `SERVER_PORT` - 服务端口（默认 8000）
+- 其他配置通常保持默认即可
+
+💡 **提示**：`.env.example` 文件包含了每个配置项的详细中文说明和使用建议，建议仔细阅读。
+
+### 第二步：构建并启动
+
 ```bash
 # 1. 构建前端
 ./build-frontend.sh
@@ -14,8 +39,8 @@ open http://localhost:8000
 ```
 
 默认管理员账号：
-- 用户名: `admin`
-- 密码: `admin`（请在 `.env` 中修改）
+- 用户名: `admin`（在 `.env` 中配置）
+- 密码: `admin`（⚠️ 强烈建议在 `.env` 中修改！）
 
 ---
 
