@@ -1,0 +1,43 @@
+{
+  "Users": [
+    {
+      "Login": "pureol",
+      "Id": "781746057",
+      "ClientSecret": "s45x83gve5fxf0b3ocy520s1hdpnev",
+      "UniqueId": "FNIYLWDWRw3BmFZn4rfJg3vIciJKNA4A",
+      "Enabled": false,
+      "FavouriteGames": [
+        "Albion Online",
+        "Path of Exile ",
+        "Path of Exile 2"
+      ]
+    },
+    {
+      "Login": "xiaoqin2966",
+      "Id": "251818622",
+      "ClientSecret": "kwlceqnxlm9pf49j1o5e3odlzcjvxh",
+      "UniqueId": "jHWnBLkwtkvdgFB8c9b6CjNijVcefEmg",
+      "Enabled": true,
+      "FavouriteGames": [
+        "Albion Online",
+        "Path of Exile ",
+        "Path of Exile 2"
+      ]
+    }
+  ],
+  "FavouriteGames": [],
+  "AvoidCampaign": [],
+  "OnlyFavouriteGames": false,
+  "LaunchOnStartup": true,
+  "MinimizeInTray": true,
+  "ForceTryWithTags": false,
+  "OnlyConnectedAccounts": true,
+  "LogLevel": 0,
+  "WebhookURL": null,
+  "waitingSeconds": 300,
+  "AttemptToWatch": 3,
+  "WatchManagerConfig": {
+    "WatchManager": "WatchRequest",
+    "headless": true
+  }
+}

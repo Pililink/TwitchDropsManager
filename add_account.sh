@@ -1,0 +1,1 @@
+docker compose exec -it drop /bin/sh -c "dotnet TwitchDropsBot.Console.dll --add-account"

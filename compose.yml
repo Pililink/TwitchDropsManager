@@ -1,0 +1,28 @@
+services:
+  drop:
+    image: twitch-drops-bot:1.1.4a
+    build:
+      context: ./TwitchDropsBot
+      dockerfile: ./TwitchDropsBot.Console/Dockerfile
+    restart: unless-stopped
+    volumes:
+      - ./config.json:/app/config.json
+      - ./logs:/app/logs
+
+  web:
+    build:
+      context: ./web-backend
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./config.json:/app/config.json
+      - ./logs:/app/logs
+      - ./web-backend/:/app
+      - ./.env:/app/.env
+      - /var/run/docker.sock:/var/run/docker.sock  # 挂载Docker socket以调用docker命令
+      - /root/twitch:/root/twitch:ro  # 挂载项目根目录（只读）用于找到compose.yml
+    command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
+    depends_on:
+      - drop
